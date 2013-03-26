@@ -17,6 +17,17 @@ end
 
 module Rails3DeviseRspecCucumber
   class Application < Rails::Application
+    
+    # don't generate RSpec tests for views and helpers
+    config.generators do |g|
+    g.test_framework :rspec, fixture: true
+    g.fixture_replacement :factory_girl, dir: 'spec/factories'
+    g.view_specs false
+    g.helper_specs false
+    g.stylesheets = false
+    g.javascripts = false
+    g.helper = false
+  end
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -43,7 +54,7 @@ module Rails3DeviseRspecCucumber
     config.encoding = "utf-8"
 
     # Configure sensitive parameters which will be filtered from the log file.
-    config.filter_parameters += [:password]
+    config.filter_parameters += [:password, :password_confirmation]
 
     # Enable escaping HTML in JSON.
     config.active_support.escape_html_entities_in_json = true
