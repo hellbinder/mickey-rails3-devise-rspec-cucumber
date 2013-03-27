@@ -5,5 +5,7 @@ FactoryGirl.define do
     password 'change_me'
     password_confirmation 'change_me'
     confirmed_at Time.now
+    confirmation_token 'asdlkfjnljfnsdlkfnsd' 
+    confirmation_sent_at Time.now
   end
 end
