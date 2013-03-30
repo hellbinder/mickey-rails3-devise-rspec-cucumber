@@ -1,7 +1,6 @@
 ### UTILITY METHODS ###
-
 def create_visitor
-  @visitor ||= { name: "Testy McUserton", email: "example@example.com",
+  @visitor ||= { name: Faker::Name.name, email: Faker::Internet.email,
     password: "changeme", password_confirmation: "changeme", confirmed_at: Time.now,
     confirmation_token: "asdlkfjnljfnsdlkfnsd", confirmed_at: Time.now, confirmation_sent_at: Time.now - 3.days, unconfirmed_email: nil }
 end
@@ -133,6 +132,10 @@ When /^I look at the list of users$/ do
   visit '/'
 end
 
+When /^I visit the selected user page$/  do
+  visit "/users/#{@user[:id]}"
+end
+
 ### THEN ###
 Then /^I should be signed in$/ do
   page.should have_content "Logout"
@@ -188,5 +191,14 @@ end
 
 Then /^I should see my name$/ do
   create_user
+  puts @user.name
   page.should have_content @user[:name]
+end
+
+Then /^I should see the user name$/ do
+  page.should have_content @user[:name]
+end
+
+Then /^i should see the user email$/ do
+  page.should have_content @user[:email]
 end
